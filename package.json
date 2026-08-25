@@ -1,0 +1,70 @@
+{
+  "name": "torrent-downloader",
+  "productName": "Torrent Downloader",
+  "version": "1.0.0",
+  "description": "A local-first BitTorrent client for macOS. Paste a magnet link, pick your files, download.",
+  "private": true,
+  "type": "module",
+  "main": "out/main/main.js",
+  "author": {
+    "name": "Asad Rao"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "electron-vite dev",
+    "dev:watch": "electron-vite dev --watch",
+    "build": "npm run typecheck && electron-vite build",
+    "preview": "electron-vite preview",
+    "typecheck": "tsc --noEmit -p tsconfig.node.json && tsc --noEmit -p tsconfig.web.json && tsc --noEmit -p tsconfig.e2e.json",
+    "test": "vitest run --project unit",
+    "test:watch": "vitest --project unit",
+    "test:integration": "vitest run --project integration",
+    "test:e2e": "npm run build && playwright test",
+    "test:all": "npm run test && npm run test:integration && npm run test:e2e",
+    "pack:dir": "npm run build && electron-builder --dir",
+    "pack:app": "npm run build && electron-builder --mac --dir",
+    "dist": "npm run build && electron-builder --mac",
+    "dist:dmg": "npm run build && electron-builder --mac dmg",
+    "dist:universal": "npm run build && electron-builder --mac --universal",
+    "postinstall": "electron-builder install-app-deps"
+  },
+  "dependencies": {
+    "parse-torrent": "^11.0.24",
+    "webtorrent": "^3.0.21"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.62.1",
+    "@types/node": "^26.2.0",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.4",
+    "@vitejs/plugin-react": "^5.2.0",
+    "electron": "^43.4.1",
+    "electron-builder": "^26.15.3",
+    "electron-vite": "^5.0.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "typescript": "5.9.3",
+    "vite": "^7.3.6",
+    "vitest": "^4.1.11"
+  },
+  "homepage": "https://github.com/asadrao98/torrent-downloader#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/asadrao98/torrent-downloader.git"
+  },
+  "bugs": {
+    "url": "https://github.com/asadrao98/torrent-downloader/issues"
+  },
+  "keywords": [
+    "bittorrent",
+    "torrent",
+    "magnet",
+    "electron",
+    "macos",
+    "webtorrent",
+    "downloader"
+  ]
+}

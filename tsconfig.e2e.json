@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    // Playwright's `page.evaluate` callbacks execute in the renderer, so these
+    // tests legitimately need both Node and DOM types. The main process config
+    // deliberately excludes DOM, which is why e2e gets its own project.
+    "lib": ["ES2023", "DOM", "DOM.Iterable"],
+    "types": ["node"],
+    "strict": true,
+    "noImplicitOverride": true,
+    "noFallthroughCasesInSwitch": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "verbatimModuleSyntax": true,
+    "noEmit": true,
+    "composite": true,
+    "baseUrl": ".",
+    "paths": {
+      "@shared/*": ["app/shared/*"],
+      "@main/*": ["app/main/*"]
+    }
+  },
+  "include": [
+    "types/**/*.d.ts",
+    "app/renderer/global.d.ts",
+    "app/preload/**/*.ts",
+    "app/shared/**/*.ts",
+    "tests/e2e/**/*.ts",
+    "tests/integration/helpers/**/*.ts",
+    "playwright.config.ts"
+  ]
+}

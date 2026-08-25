@@ -1,0 +1,83 @@
+appId: com.local.torrent-downloader
+productName: Torrent Downloader
+copyright: Local build
+
+directories:
+  output: dist
+  buildResources: build
+
+# `out/` is the electron-vite bundle; production dependencies are added
+# automatically by electron-builder from package.json.
+files:
+  - out/**/*
+  - package.json
+  - '!**/*.map'
+  - '!**/{.DS_Store,.git,.github,.vscode}'
+  - '!**/{test,tests,__tests__,powered-test,example,examples}'
+  - '!**/*.{md,markdown,txt}'
+  - '!**/{tsconfig*.json,.eslintrc*,.prettierrc*}'
+
+asar: true
+
+# Native addons cannot be loaded from inside an asar archive, so they are
+# unpacked. `utp-native` is what gives the engine µTP support; the other two are
+# optional `ws` accelerators. If these are not unpacked the app still runs, but
+# it silently loses µTP and falls back to TCP only.
+asarUnpack:
+  - '**/node_modules/utp-native/**'
+  - '**/node_modules/bufferutil/**'
+  - '**/node_modules/utf-8-validate/**'
+  - '**/node_modules/*/build/Release/*.node'
+
+mac:
+  category: public.app-category.utilities
+  icon: build/icon.icns
+  target:
+    - target: dmg
+      arch: [arm64]
+    - target: zip
+      arch: [arm64]
+  # Unsigned local build. Without an Apple Developer ID there is nothing to sign
+  # with, and asking electron-builder to sign would fail the build. See the
+  # README for the Gatekeeper step this implies on first launch.
+  identity: null
+  hardenedRuntime: false
+  gatekeeperAssess: false
+  darkModeSupport: true
+  minimumSystemVersion: '11.0'
+  extendInfo:
+    # Registers the app as a handler for magnet: links.
+    CFBundleURLTypes:
+      - CFBundleURLName: Magnet Link
+        CFBundleURLSchemes:
+          - magnet
+    # The app has no need for any of these; declaring nothing keeps macOS from
+    # ever prompting for them.
+    NSAppleEventsUsageDescription: null
+    LSMinimumSystemVersion: '11.0'
+
+# Associates .torrent files with the app.
+fileAssociations:
+  - ext: torrent
+    name: BitTorrent File
+    role: Viewer
+    icon: build/icon.icns
+
+dmg:
+  title: Torrent Downloader
+  icon: build/icon.icns
+  window:
+    width: 540
+    height: 380
+  contents:
+    - x: 140
+      y: 190
+      type: file
+    - x: 400
+      y: 190
+      type: link
+      path: /Applications
+
+# No auto-update server for a local build; publishing is explicitly disabled so
+# electron-builder never tries to reach one.
+publish: null

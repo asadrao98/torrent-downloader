@@ -1,0 +1,178 @@
+/*
+ * Design tokens.
+ *
+ * Colours track the macOS system palette rather than inventing a scheme, so the
+ * app sits comfortably next to Finder and System Settings. Light is the base
+ * definition; the dark block only redefines values, never structure.
+ */
+
+:root {
+  /* Typography: the system stack, so text renders exactly like native UI. */
+  --font-ui: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', Helvetica, Arial,
+    sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Monaco, monospace;
+
+  --text-xs: 11px;
+  --text-sm: 12px;
+  --text-base: 13px;
+  --text-md: 15px;
+  --text-lg: 19px;
+  --text-xl: 24px;
+  --text-2xl: 30px;
+
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 590;
+  --weight-bold: 680;
+
+  /* Spacing: 4px rhythm. */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+
+  --radius-sm: 5px;
+  --radius-md: 7px;
+  --radius-lg: 10px;
+  --radius-xl: 14px;
+  --radius-pill: 999px;
+
+  --sidebar-width: 228px;
+  --titlebar-height: 52px;
+
+  /* ---- Light ---- */
+  --accent: #007aff;
+  --accent-hover: #0a6fd8;
+  --accent-text: #ffffff;
+  --accent-soft: rgba(0, 122, 255, 0.12);
+
+  --bg-window: #f2f2f5;
+  --bg-sidebar: rgba(246, 246, 248, 0.72);
+  --bg-content: #ffffff;
+  --bg-raised: #ffffff;
+  --bg-sunken: #f6f6f8;
+  --bg-hover: rgba(0, 0, 0, 0.045);
+  --bg-active: rgba(0, 0, 0, 0.075);
+  --bg-input: #ffffff;
+
+  --text-primary: #1d1d1f;
+  --text-secondary: #6e6e73;
+  --text-tertiary: #98989d;
+  --text-inverse: #ffffff;
+
+  --border-subtle: rgba(0, 0, 0, 0.08);
+  --border-strong: rgba(0, 0, 0, 0.16);
+  --border-focus: var(--accent);
+
+  --green: #28a745;
+  --green-soft: rgba(40, 167, 69, 0.14);
+  --orange: #f08c00;
+  --orange-soft: rgba(240, 140, 0, 0.14);
+  --red: #d70015;
+  --red-soft: rgba(215, 0, 21, 0.12);
+  --purple: #8944ab;
+  --purple-soft: rgba(137, 68, 171, 0.14);
+  --gray: #8e8e93;
+  --gray-soft: rgba(142, 142, 147, 0.16);
+
+  --track: rgba(0, 0, 0, 0.09);
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.07);
+  --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.12);
+  --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.22);
+
+  --transition: 140ms cubic-bezier(0.3, 0, 0.2, 1);
+}
+
+/* ---- Dark ----
+ * Applies for an explicit dark choice, and for "system" when the OS is dark.
+ * Guarded with :not([data-theme='light']) so an explicit light choice wins.
+ */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --accent: #0a84ff;
+    --accent-hover: #3d9bff;
+    --accent-text: #ffffff;
+    --accent-soft: rgba(10, 132, 255, 0.2);
+
+    --bg-window: #1c1c1e;
+    --bg-sidebar: rgba(38, 38, 41, 0.62);
+    --bg-content: #242426;
+    --bg-raised: #2c2c2e;
+    --bg-sunken: #1c1c1e;
+    --bg-hover: rgba(255, 255, 255, 0.06);
+    --bg-active: rgba(255, 255, 255, 0.1);
+    --bg-input: #1c1c1e;
+
+    --text-primary: #f5f5f7;
+    --text-secondary: #a1a1a6;
+    --text-tertiary: #6e6e73;
+    --text-inverse: #1d1d1f;
+
+    --border-subtle: rgba(255, 255, 255, 0.1);
+    --border-strong: rgba(255, 255, 255, 0.2);
+
+    --green: #30d158;
+    --green-soft: rgba(48, 209, 88, 0.18);
+    --orange: #ff9f0a;
+    --orange-soft: rgba(255, 159, 10, 0.18);
+    --red: #ff453a;
+    --red-soft: rgba(255, 69, 58, 0.18);
+    --purple: #bf5af2;
+    --purple-soft: rgba(191, 90, 242, 0.18);
+    --gray: #98989d;
+    --gray-soft: rgba(152, 152, 157, 0.2);
+
+    --track: rgba(255, 255, 255, 0.12);
+
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+    --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.5);
+    --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.6);
+  }
+}
+
+/* An explicit dark choice must win regardless of the OS setting. */
+:root[data-theme='dark'] {
+  --accent: #0a84ff;
+  --accent-hover: #3d9bff;
+  --accent-text: #ffffff;
+  --accent-soft: rgba(10, 132, 255, 0.2);
+
+  --bg-window: #1c1c1e;
+  --bg-sidebar: rgba(38, 38, 41, 0.62);
+  --bg-content: #242426;
+  --bg-raised: #2c2c2e;
+  --bg-sunken: #1c1c1e;
+  --bg-hover: rgba(255, 255, 255, 0.06);
+  --bg-active: rgba(255, 255, 255, 0.1);
+  --bg-input: #1c1c1e;
+
+  --text-primary: #f5f5f7;
+  --text-secondary: #a1a1a6;
+  --text-tertiary: #6e6e73;
+  --text-inverse: #1d1d1f;
+
+  --border-subtle: rgba(255, 255, 255, 0.1);
+  --border-strong: rgba(255, 255, 255, 0.2);
+
+  --green: #30d158;
+  --green-soft: rgba(48, 209, 88, 0.18);
+  --orange: #ff9f0a;
+  --orange-soft: rgba(255, 159, 10, 0.18);
+  --red: #ff453a;
+  --red-soft: rgba(255, 69, 58, 0.18);
+  --purple: #bf5af2;
+  --purple-soft: rgba(191, 90, 242, 0.18);
+  --gray: #98989d;
+  --gray-soft: rgba(152, 152, 157, 0.2);
+
+  --track: rgba(255, 255, 255, 0.12);
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.6);
+}
