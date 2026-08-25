@@ -175,4 +175,25 @@ See [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md).
 
 ## Licence
 
-MIT — see [LICENSE](LICENSE).
+This project is **MIT** — see [LICENSE](LICENSE). Use it, fork it, ship it commercially; just keep the copyright notice.
+
+### Bundled dependencies
+
+A packaged build redistributes its dependencies, so their notices ship with it. The app bundle contains, under `Contents/Resources/`:
+
+| File | Covers |
+| --- | --- |
+| `LICENSE.txt` | This project (MIT) |
+| `THIRD-PARTY-NOTICES.md` | All 168 bundled npm packages |
+| `LICENSE.electron.txt` | The Electron runtime (MIT) |
+| `LICENSES.chromium.html` | Chromium and its own third-party code |
+
+Regenerate the notices with `npm run notices`; `npm run dist` does it automatically.
+
+The dependency tree is almost entirely permissive — 138 MIT, 15 Apache-2.0, 6 ISC, plus a handful of BSD variants. The one exception worth knowing about:
+
+- **`node-datachannel` is MPL-2.0.** It arrives via `webtorrent → @thaunknown/simple-peer → webrtc-polyfill` and provides WebRTC transport, which this app doesn't use — but it is bundled, so it ships. MPL-2.0 is file-level copyleft: it does not affect this project's MIT licence, but it does require that recipients can get its source. It is included unmodified and [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md) points at where to obtain it.
+
+Nothing in the tree is GPL or AGPL, so there is no obligation to relicense.
+
+> Licensing summaries are not legal advice. If you plan to distribute this commercially or at scale, have someone qualified confirm the obligations for your situation.

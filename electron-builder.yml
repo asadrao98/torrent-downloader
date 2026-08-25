@@ -17,6 +17,21 @@ files:
   - '!**/*.{md,markdown,txt}'
   - '!**/{tsconfig*.json,.eslintrc*,.prettierrc*}'
 
+# Redistributing the packaged app redistributes every bundled dependency, and
+# the permissive licences involved (MIT, BSD, Apache-2.0, ISC) require their
+# copyright notices to travel with the binary. Electron ships Chromium's
+# notices in its dist but electron-builder does not copy them by default, so
+# they are placed into Resources/ explicitly.
+extraResources:
+  - from: THIRD-PARTY-NOTICES.md
+    to: THIRD-PARTY-NOTICES.md
+  - from: LICENSE
+    to: LICENSE.txt
+  - from: node_modules/electron/dist/LICENSE
+    to: LICENSE.electron.txt
+  - from: node_modules/electron/dist/LICENSES.chromium.html
+    to: LICENSES.chromium.html
+
 asar: true
 
 # Native addons cannot be loaded from inside an asar archive, so they are

@@ -26,10 +26,11 @@
     "test:all": "npm run test && npm run test:integration && npm run test:e2e",
     "pack:dir": "npm run build && electron-builder --dir",
     "pack:app": "npm run build && electron-builder --mac --dir",
-    "dist": "npm run build && electron-builder --mac",
-    "dist:dmg": "npm run build && electron-builder --mac dmg",
-    "dist:universal": "npm run build && electron-builder --mac --universal",
-    "postinstall": "electron-builder install-app-deps"
+    "dist": "npm run build && npm run notices && electron-builder --mac",
+    "dist:dmg": "npm run build && npm run notices && electron-builder --mac dmg",
+    "dist:universal": "npm run build && npm run notices && electron-builder --mac --universal",
+    "postinstall": "electron-builder install-app-deps",
+    "notices": "node scripts/generate-notices.mjs"
   },
   "dependencies": {
     "parse-torrent": "^11.0.24",
